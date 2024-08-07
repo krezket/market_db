@@ -7,7 +7,7 @@ class Merchandice extends Model {};
 Merchandice.init(
     {
         id: {
-            type: datatypes.integer,
+            type: datatypes.INTEGER,
             allownull: false,
             primarykey: true,
             autoincrement: true,
@@ -20,6 +20,14 @@ Merchandice.init(
             type: DataTypes.TEXT,
             allowNull: false,
         },
+        price: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        link: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        }
     },
 
 module.exports = Merchandice;
