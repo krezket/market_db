@@ -1,0 +1,3 @@
+DROP DATABASE OF EXISTS market_db;
+
+CREATE DATABASE market_db;
