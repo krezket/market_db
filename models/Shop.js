@@ -8,7 +8,6 @@ Shop.init(
     {
         id: {
             type: datatypes.integer,
-            // defaultvalue: datatypes.uuidv4,
             allownull: false,
             primarykey: true,
             autoincrement: true,
@@ -21,15 +20,6 @@ Shop.init(
             type: DataTypes.TEXT,
             allowNull: true,
         },
-        username: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true,
-        },
-        password: {
-            type: DataTypes.STRING,
-            allowNull: false,   
-        },
     },
 
-    module.exports = Shop;
+module.exports = Shop;
