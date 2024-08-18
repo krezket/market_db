@@ -9,7 +9,7 @@ Shop.init(
         id: {
             type: DataTypes.INTEGER,
             allownull: false,
-            primarykey: true,
+            primaryKey: true,
             autoincrement: true,
         },
         name: {
@@ -21,5 +21,8 @@ Shop.init(
             allowNull: true,
         },
     },
+    {
+        sequelize,
+    }
 )
 module.exports = Shop;

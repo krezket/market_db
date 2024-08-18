@@ -16,6 +16,6 @@ const server = http.createServer(app);
 
 sequelize.sync({ force: false }).then(function() {
     server.listen(PORT, function() {
-        console.log('App listening on PORT');
+        console.log('App listening on PORT ' + PORT);
     });
 });

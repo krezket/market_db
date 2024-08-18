@@ -9,7 +9,7 @@ Merchandise.init(
         id: {
             type: DataTypes.INTEGER,
             allownull: false,
-            primarykey: true,
+            primaryKey: true,
             autoincrement: true,
         },
         name: {
@@ -29,6 +29,9 @@ Merchandise.init(
             allowNull: false,
         }
     },
+    {
+        sequelize,
+    }
 )
 module.exports = Merchandise;
 
