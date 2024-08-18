@@ -8,15 +8,15 @@ Shop.init(
     {
         id: {
             type: DataTypes.INTEGER,
-            allownull: false,
+            allowNull: false,
             primaryKey: true,
-            autoincrement: true,
+            autoIncrement: true,
         },
         name: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        bio: {
+        description: {
             type: DataTypes.TEXT,
             allowNull: true,
         },

@@ -1,0 +1,51 @@
+const router = require('express').Router();
+const { Shop } = require('../models');
+
+router.get('/', async (req, res) => {
+    try {
+        const shops = await Shop.findAll({})
+        res.json(shops);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            msg: "error",
+            err
+        })
+    }
+});  
+
+router.post('/', async (req, res) => {
+    try {
+        console.log(req.body)
+        const newShop = await Shop.create(req.body);
+        res.json({
+            shop: newShop
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            msg: "error creating shop",
+            err
+        });
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    try {
+        await Shop.destroy({
+            where: {id: req.params.id}
+        });
+        res.status(200).json({
+            msg: "Deleted"
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            msg: "error deleting shop",
+            err
+        });
+    }
+});
+
+module.exports = router;
+

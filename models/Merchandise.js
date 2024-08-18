@@ -8,9 +8,9 @@ Merchandise.init(
     {
         id: {
             type: DataTypes.INTEGER,
-            allownull: false,
+            allowNull: false,
             primaryKey: true,
-            autoincrement: true,
+            autoIncrement: true,
         },
         name: {
             type: DataTypes.STRING,
