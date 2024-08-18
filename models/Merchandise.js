@@ -1,13 +1,13 @@
-const { model, datatypes } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 const bcrypt = require('bcrypt');
 
-class Merchandice extends Model {};
+class Merchandise extends Model {};
 
-Merchandice.init(
+Merchandise.init(
     {
         id: {
-            type: datatypes.INTEGER,
+            type: DataTypes.INTEGER,
             allownull: false,
             primarykey: true,
             autoincrement: true,
@@ -29,6 +29,6 @@ Merchandice.init(
             allowNull: false,
         }
     },
-
-module.exports = Merchandice;
+)
+module.exports = Merchandise;
 

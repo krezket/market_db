@@ -1,7 +1,7 @@
 const Vendor = require('./Vendor');
 const User = require('./User');
 const Shop = require('./Shop');
-const Merchandice = require('./Merchandice');
+const Merchandise = require('./Merchandise');
 
 Vendor.hasOne(Shop, {
     onDelete: 'CASCADE',

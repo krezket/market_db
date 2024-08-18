@@ -1,4 +1,4 @@
-const { model, datatypes } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 const bcrypt = require('bcrypt');
 
@@ -7,7 +7,7 @@ class Shop extends Model {};
 Shop.init(
     {
         id: {
-            type: datatypes.integer,
+            type: DataTypes.INTEGER,
             allownull: false,
             primarykey: true,
             autoincrement: true,
@@ -21,5 +21,5 @@ Shop.init(
             allowNull: true,
         },
     },
-
+)
 module.exports = Shop;
