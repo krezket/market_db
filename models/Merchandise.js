@@ -24,8 +24,8 @@ Merchandise.init(
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        link: {
-            type: DataTypes.STRING,
+        in_stock: {
+            type: DataTypes.INTEGER,
             allowNull: false,
         }
     },
