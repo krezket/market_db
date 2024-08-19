@@ -26,6 +26,31 @@ router.get('/', async (req, res) => {
         })
     }
 });  
+router.get("/:id", async (req, res) => {
+    try {
+        const userData = await User.findByPk(req.params.id, {
+            include: [
+                {
+                    model: Vendor,
+                    as: 'subscriptions'
+                },
+                {
+                    model: Merchandise,
+                    as: 'basket',
+                },
+            ]
+        });
+
+        if (!userData) {
+            return res.status(404).json({ msg: "no such user" });
+        }
+
+        res.json(userData);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ msg: "womp womp", err });
+    }
+});
 
 router.post('/', async (req, res) => {
     try {
