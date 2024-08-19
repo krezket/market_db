@@ -36,11 +36,6 @@ Shop.belongsTo(Vendor, {
 
 /////////////////
 
-// Vendor.hasMany(Merchandise, {
-//     onDelete: 'CASCADE',
-//     foreignKey: 'vendor_id',
-//     as: 'merchandise',
-// });
 Shop.hasMany(Merchandise, {
     onDelete: 'CASCADE',
     foreignKey: 'shop_id',
