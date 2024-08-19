@@ -95,7 +95,7 @@ router.put('/merch/:id', async (req, res) => {
             return res.status(404).json({ msg: "Merch not found"})
         }
 
-        await user.(merch);
+        await user.addBasket(merch);
 
         res.json({ msg: 'Merch added to basket' });
     } catch (err) {

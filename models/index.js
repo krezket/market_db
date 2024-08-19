@@ -49,10 +49,17 @@ Shop.hasMany(Merchandise, {
 
 /////////////////
 
-User.hasMany(Merchandise, {
+Merchandise.belongsToMany(User, {
     onDelete: 'CASCADE',
-    foreignKey: 'basket_id',
-    as: 'basket',
+    through: Basket,
+    foreignKey: 'merch_id',
+    as: 'basket'
+});
+User.belongsToMany(Merchandise, { 
+    onDelete: 'CASCADE',
+    through: Basket,
+    foreignKey: 'user_id',
+    as: 'basket'
 });
 
 module.exports = { Vendor, User, Shop, Merchandise, Basket };
