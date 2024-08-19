@@ -56,10 +56,10 @@ router.post('/', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
-        const userData = await User.findOne({ where: {username: req.body.username} });
+        const userData = await User.findOne({ where: { username: req.body.username } });
         if (!userData) {
             return res.status(403).json({ msg: "invalid login" });
-        } else if ( !bcrypt.compareSync(req.body.password, userData.password)) {
+        } else if (!bcrypt.compareSync(req.body.password, userData.password)) {
             return res.status(403).json({ msg: "invalid login" });
         } else {
             const token = jwt.sign(
@@ -67,7 +67,7 @@ router.post('/login', async (req, res) => {
                     username: userData.username,
                     userId: userData.id
                 },
-                process.JWT_SECRET,
+                process.env.JWT_SECRET,
                 {
                     expiresIn: "2h"
                 }
