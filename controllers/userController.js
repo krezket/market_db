@@ -53,6 +53,7 @@ router.post('/', async (req, res) => {
         });
     }
 });
+
 router.post('/login', async (req, res) => {
     try {
         const userData = await User.findOne({ where: {username: req.body.username} });
@@ -73,7 +74,7 @@ router.post('/login', async (req, res) => {
             );
             res.json({
                 token,
-                user: newUser
+                user: userData
             });
         } 
     } catch (err) {
@@ -89,26 +90,14 @@ router.get("/auth/verifytoken", async (req, res) => {
     const token = req.headers.authorization?.split(" ")[1];
     try {
         const data = jwt.verify(token, process.env.JWT_SECRET);
-        const foundUser = await User.findByPk(data.userId, {
-            include: [
-                {
-                    model: User,
-                    as: 'followers',
-                    attributes: { exclude: ['password', 'bio'] }
-                },
-                {
-                    model: User,
-                    as: 'following',
-                    attributes: { exclude: ['password', 'bio'] }
-                }
-            ]
-        });
+        const foundUser = await User.findByPk(data.userId);
         res.json(foundUser);
     } catch (err) {
         console.log(err);
         res.status(403).json({ msg: "bad token", err });
     }
 });
+
 router.put('/subscribe/:id', async (req, res) => {
     const userId = req.params.id;
     const vendorId = req.body.subscribe_id;
