@@ -53,7 +53,62 @@ router.post('/', async (req, res) => {
         });
     }
 });
+router.post('/login', async (req, res) => {
+    try {
+        const userData = await User.findOne({ where: {username: req.body.username} });
+        if (!userData) {
+            return res.status(403).json({ msg: "invalid login" });
+        } else if ( !bcrypt.compareSync(req.body.password, userData.password)) {
+            return res.status(403).json({ msg: "invalid login" });
+        } else {
+            const token = jwt.sign(
+                {
+                    username: userData.username,
+                    userId: userData.id
+                },
+                process.JWT_SECRET,
+                {
+                    expiresIn: "2h"
+                }
+            );
+            res.json({
+                token,
+                user: newUser
+            });
+        } 
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            msg: "error creating user",
+            err
+        });
+    }
+});
 
+router.get("/auth/verifytoken", async (req, res) => {
+    const token = req.headers.authorization?.split(" ")[1];
+    try {
+        const data = jwt.verify(token, process.env.JWT_SECRET);
+        const foundUser = await User.findByPk(data.userId, {
+            include: [
+                {
+                    model: User,
+                    as: 'followers',
+                    attributes: { exclude: ['password', 'bio'] }
+                },
+                {
+                    model: User,
+                    as: 'following',
+                    attributes: { exclude: ['password', 'bio'] }
+                }
+            ]
+        });
+        res.json(foundUser);
+    } catch (err) {
+        console.log(err);
+        res.status(403).json({ msg: "bad token", err });
+    }
+});
 router.put('/subscribe/:id', async (req, res) => {
     const userId = req.params.id;
     const vendorId = req.body.subscribe_id;
