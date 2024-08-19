@@ -5,19 +5,6 @@ const Merchandise = require('./Merchandise');
 const Subscriber = require('./Subscribers');
 /////////////////
 
-Vendor.hasOne(Shop, {
-    onDelete: 'CASCADE',
-    foreignKey: 'owner_id',
-    as: 'shop',
-});
-Shop.belongsTo(Vendor, {
-    onDelete: 'CASCADE',
-    foreignKey: 'owner_id',
-    as: 'vendor',
-});
-
-/////////////////
-
 Vendor.belongsToMany(User, {
     onDelete: 'CASCADE',
     through: Subscriber,
@@ -32,6 +19,31 @@ User.belongsToMany(Vendor, {
 });
 Subscriber.belongsTo(Vendor, { foreignKey: 'subscriber_id'});
 Subscriber.belongsTo(User, { foreignKey: 'subscribed_id'});
+
 /////////////////
+
+Vendor.hasOne(Shop, {
+    onDelete: 'CASCADE',
+    foreignKey: 'owner_id',
+    as: 'shop',
+});
+Shop.belongsTo(Vendor, {
+    onDelete: 'CASCADE',
+    foreignKey: 'owner_id',
+    as: 'vendor',
+});
+
+/////////////////
+
+// Vendor.hasMany(Merchandise, {
+//     onDelete: 'CASCADE',
+//     foreignKey: 'vendor_id',
+//     as: 'merchandise',
+// });
+Shop.hasMany(Merchandise, {
+    onDelete: 'CASCADE',
+    foreignKey: 'shop_id',
+    as: 'merchandise',
+});
 
 module.exports = { Vendor, User, Shop, Merchandise };

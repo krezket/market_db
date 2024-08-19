@@ -1,9 +1,16 @@
 const router = require('express').Router();
-const { Shop } = require('../models');
+const { Shop, Merchandise } = require('../models');
 
 router.get('/', async (req, res) => {
     try {
-        const shops = await Shop.findAll({})
+        const shops = await Shop.findAll({
+            include: [
+                {
+                    model: Merchandise,
+                    as: 'merchandise'
+                },
+            ]
+        })
         res.json(shops);
     } catch (err) {
         console.log(err);
