@@ -3,6 +3,7 @@ const { User, Vendor, Merchandise } = require('../models');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
+// FIND ALL USERS
 router.get('/', async (req, res) => {
     try {
         const users = await User.findAll({
@@ -26,6 +27,8 @@ router.get('/', async (req, res) => {
         })
     }
 });  
+
+// FIND USER BY ID
 router.get("/:id", async (req, res) => {
     try {
         const userData = await User.findByPk(req.params.id, {
@@ -52,6 +55,7 @@ router.get("/:id", async (req, res) => {
     }
 });
 
+// CREATE USER
 router.post('/', async (req, res) => {
     try {
         console.log(req.body)
@@ -79,6 +83,7 @@ router.post('/', async (req, res) => {
     }
 });
 
+// LOGIN AS USER
 router.post('/login', async (req, res) => {
     try {
         const userData = await User.findOne({ where: { username: req.body.username } });
@@ -123,6 +128,7 @@ router.get("/auth/verifytoken", async (req, res) => {
     }
 });
 
+// SUBSCRIBE TO VENDOR
 router.put('/subscribe/:id', async (req, res) => {
     const userId = req.params.id;
     const vendorId = req.body.subscribe_id;
@@ -148,6 +154,8 @@ router.put('/subscribe/:id', async (req, res) => {
         res.status(500).json({ msg: 'Internal server error' });
     }
 });
+
+// UNSUBSCRIBE TO VENDOR
 router.put('/unsubscribe/:id', async (req, res) => {
     const userId = req.params.id;
     const vendorId = req.body.subscribe_id;
@@ -174,6 +182,7 @@ router.put('/unsubscribe/:id', async (req, res) => {
     }
 });
 
+// ADD MERCH TO USER BASKET
 router.put('/addmerch/:id', async (req, res) => {
     const userId = req.params.id;
     const merchId = req.body.merch_id;
@@ -197,6 +206,8 @@ router.put('/addmerch/:id', async (req, res) => {
         res.status(500).json({ msg: 'Internal server error' });
     }
 });
+
+// REMOVE MERCH FROM USER BASKET
 router.put('/removemerch/:id', async (req, res) => {
     const userId = req.params.id;
     const merchId = req.body.merch_id;
@@ -221,6 +232,7 @@ router.put('/removemerch/:id', async (req, res) => {
     }
 });
 
+// DELETE USER
 router.delete('/:id', async (req, res) => {
     try {
         await User.destroy({

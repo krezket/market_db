@@ -3,6 +3,7 @@ const { Vendor, User, Shop } = require('../models');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
+// GET ALL VENDORS
 router.get('/', async (req, res) => {
     try {
         const vendors = await Vendor.findAll({
@@ -27,6 +28,7 @@ router.get('/', async (req, res) => {
     }
 });  
 
+// CREATE A VENDOR
 router.post('/', async (req, res) => {
     try {
         console.log(req.body)
@@ -54,6 +56,7 @@ router.post('/', async (req, res) => {
     }
 });
 
+// LOGIN AS VENDOR
 router.post('/login', async (req, res) => {
     try {
         const vendorData = await Vendor.findOne({ where: {username: req.body.username} });
@@ -97,6 +100,8 @@ router.get("/auth/verifytoken", async (req, res) => {
         res.status(403).json({ msg: "bad token", err });
     }
 });
+
+// DELETE VENDOR
 router.delete('/:id', async (req, res) => {
     try {
         await Vendor.destroy({

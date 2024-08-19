@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { Merchandise } = require('../models');
 
+// GET ALL MERCHANDISE
 router.get('/', async (req, res) => {
     try {
         const merchandise = await Merchandise.findAll({})
@@ -14,6 +15,7 @@ router.get('/', async (req, res) => {
     }
 });  
 
+// CREATE MERCHANDISE
 router.post('/', async (req, res) => {
     try {
         console.log(req.body)
@@ -30,6 +32,7 @@ router.post('/', async (req, res) => {
     }
 });
 
+// DELETE MERCHANDISE
 router.delete('/:id', async (req, res) => {
     try {
         await Merchandise.destroy({

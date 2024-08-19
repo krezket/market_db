@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { Shop, Merchandise } = require('../models');
 
+// GET ALL SHOPS
 router.get('/', async (req, res) => {
     try {
         const shops = await Shop.findAll({
@@ -21,6 +22,7 @@ router.get('/', async (req, res) => {
     }
 });  
 
+// CREATE A SHOP
 router.post('/', async (req, res) => {
     try {
         console.log(req.body)
@@ -37,6 +39,7 @@ router.post('/', async (req, res) => {
     }
 });
 
+// DELETE A SHOP
 router.delete('/:id', async (req, res) => {
     try {
         await Shop.destroy({
