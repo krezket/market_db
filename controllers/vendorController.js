@@ -1,11 +1,22 @@
 const router = require('express').Router();
-const { Vendor, User } = require('../models');
+const { Vendor, User, Shop } = require('../models');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 router.get('/', async (req, res) => {
     try {
-        const vendors = await Vendor.findAll({})
+        const vendors = await Vendor.findAll({
+            include: [
+                {
+                    model: Shop,
+                    as: 'shop'
+                },
+                {
+                    model: User,
+                    as: 'subscribers'
+                },
+            ]
+        })
         res.json(vendors);
     } catch (err) {
         console.log(err);

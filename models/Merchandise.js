@@ -16,6 +16,10 @@ Merchandise.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
+        photo: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+        },
         description: {
             type: DataTypes.TEXT,
             allowNull: false,

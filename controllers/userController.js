@@ -1,11 +1,18 @@
 const router = require('express').Router();
-const { User } = require('../models');
+const { User, Vendor } = require('../models');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 router.get('/', async (req, res) => {
     try {
-        const users = await User.findAll({})
+        const users = await User.findAll({
+            include: [
+                {
+                    model: Vendor,
+                    as: 'subscriptions'
+                },
+            ]
+        })
         res.json(users);
     } catch (err) {
         console.log(err);
@@ -40,6 +47,32 @@ router.post('/', async (req, res) => {
             msg: "error creating user",
             err
         });
+    }
+});
+
+router.put('/subscribe/:id', async (req, res) => {
+    const userId = req.params.id;
+    const vendorId = req.body.subscribe_id;
+
+    try {
+        const user = await User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({ msg: "User not found"})
+        }
+        
+        const vendor = await Vendor.findByPk(vendorId);
+        if (!vendor) {
+            return res.status(404).json({ msg: "Vendor not found"})
+        }
+
+        await user.addSubscription(vendor);
+
+        await vendor.addSubscriber(user);
+
+        res.json({ msg: 'Subscription added' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ msg: 'Internal server error' });
     }
 });
 
