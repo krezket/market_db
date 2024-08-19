@@ -49,15 +49,8 @@ Shop.hasMany(Merchandise, {
 
 /////////////////
 
-User.belongsToMany(Merchandise, {
+User.hasMany(Merchandise, {
     onDelete: 'CASCADE',
-    through: Basket,
-    foreignKey: 'basket_id',
-    as: 'basket',
-});
-Merchandise.belongsToMany(User, {
-    onDelete: 'CASCADE',
-    through: Basket,
     foreignKey: 'basket_id',
     as: 'basket',
 });

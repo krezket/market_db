@@ -80,7 +80,29 @@ router.put('/subscribe/:id', async (req, res) => {
     }
 });
 
+router.put('/merch/:id', async (req, res) => {
+    const userId = req.params.id;
+    const merchId = req.body.merch_id;
 
+    try {
+        const user = await User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({ msg: "User not found"})
+        }
+        
+        const merch = await Merchandise.findByPk(merchId);
+        if (!merch) {
+            return res.status(404).json({ msg: "Merch not found"})
+        }
+
+        await user.(merch);
+
+        res.json({ msg: 'Merch added to basket' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ msg: 'Internal server error' });
+    }
+});
 
 router.delete('/:id', async (req, res) => {
     try {
