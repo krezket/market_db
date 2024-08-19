@@ -4,6 +4,7 @@ const Shop = require('./Shop');
 const Merchandise = require('./Merchandise');
 const Subscriber = require('./Subscribers');
 const Basket = require('./Basket')
+
 /////////////////
 
 Vendor.belongsToMany(User, {
