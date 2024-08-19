@@ -3,6 +3,7 @@ const User = require('./User');
 const Shop = require('./Shop');
 const Merchandise = require('./Merchandise');
 const Subscriber = require('./Subscribers');
+const Basket = require('./Basket')
 /////////////////
 
 Vendor.belongsToMany(User, {
@@ -46,4 +47,19 @@ Shop.hasMany(Merchandise, {
     as: 'merchandise',
 });
 
-module.exports = { Vendor, User, Shop, Merchandise };
+/////////////////
+
+User.belongsToMany(Merchandise, {
+    onDelete: 'CASCADE',
+    through: Basket,
+    foreignKey: 'basket_id',
+    as: 'basket',
+});
+Merchandise.belongsToMany(User, {
+    onDelete: 'CASCADE',
+    through: Basket,
+    foreignKey: 'basket_id',
+    as: 'basket',
+});
+
+module.exports = { Vendor, User, Shop, Merchandise, Basket };

@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Vendor } = require('../models');
+const { User, Vendor, Basket, Merchandise } = require('../models');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
@@ -10,6 +10,10 @@ router.get('/', async (req, res) => {
                 {
                     model: Vendor,
                     as: 'subscriptions'
+                },
+                {
+                    model: Merchandise,
+                    as: 'basket',
                 },
             ]
         })
@@ -75,6 +79,8 @@ router.put('/subscribe/:id', async (req, res) => {
         res.status(500).json({ msg: 'Internal server error' });
     }
 });
+
+
 
 router.delete('/:id', async (req, res) => {
     try {
